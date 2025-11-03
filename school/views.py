@@ -1,6 +1,23 @@
 from django.shortcuts import render, redirect
 from .models import Student, Course
 
+def add_course(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        instructor = request.POST['instructor']
+        Course.objects.create(name=name, instructor=instructor)
+        return redirect('student_list')
+    return render(request, 'add_course.html')
+
+def course_list(request):
+    courses = Course.objects.all()
+    return render(request, 'course_list.html', {'courses': courses})
+
+def delete_course(request, course_id):
+    course = Course.objects.get(id=course_id)
+    course.delete()
+    return redirect('course_list')
+
 def student_list(request):
     students = Student.objects.select_related('course').all()
     return render(request, 'student_list.html', {'students': students})
@@ -19,3 +36,9 @@ def add_student(request):
         return redirect('student_list')
     courses = Course.objects.all()
     return render(request, 'add_student.html', {'courses': courses})
+
+def delete_student(request, student_id):
+    student = Student.objects.get(id=student_id)
+    student.delete()
+    return redirect('student_list')
+

@@ -1,7 +1,10 @@
 <h2>Students</h2>
 <ul>
 {% for s in students %}
-    <li>{{ s.name }} ({{ s.age }}) - {{ s.course.name }}</li>
+    <li>{{ s.name }} ({{ s.age }}) - {{ s.course.name }}
+        <span><a href="{% url 'delete_student' s.id %}" style="color: red; margin-left: 10px;">Remove</a></span>
+    </li>
 {% endfor %}
 </ul>
 <a href="{% url 'add_student' %}">Add Student</a>
+<a href="{% url 'course_list' %}">Go To Course </a>

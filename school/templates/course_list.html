@@ -1,0 +1,9 @@
+<h2>Courses</h2>
+<ul>
+{% for c in courses %}
+    <li>{{ c.name }} - Instructor: {{ c.instructor }}
+    <span><a href="{% url 'delete_course' c.id %}" style="color: red; margin-left: 10px;">Remove</a></span>
+    </li>
+{% endfor %}
+</ul>
+<a href="{% url 'add_course' %}">Add Course </a>
