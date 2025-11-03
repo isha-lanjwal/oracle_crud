@@ -6,7 +6,7 @@ def add_course(request):
         name = request.POST['name']
         instructor = request.POST['instructor']
         Course.objects.create(name=name, instructor=instructor)
-        return redirect('student_list')
+        return redirect('course_list')
     return render(request, 'add_course.html')
 
 def course_list(request):
