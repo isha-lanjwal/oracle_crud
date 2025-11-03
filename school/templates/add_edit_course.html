@@ -1,0 +1,8 @@
+
+<h2>{% if course %}Edit Course{% else %}Add Course{% endif %}
+<form method="POST">
+    {% csrf_token %}   
+    <input type="text" name="name" placeholder="Course Name" value="{{ course.name|default:'' }}" required>
+    <input type="text" name="instructor" placeholder="Instructor Name" value="{{ course.instructor|default:'' }}" required>
+    <button type="submit">{% if course %}Update Course{% else %}Add Course{% endif %}</button>
+</form>

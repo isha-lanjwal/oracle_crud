@@ -1,13 +1,24 @@
 from django.shortcuts import render, redirect
 from .models import Student, Course
 
-def add_course(request):
+def add_edit_course(request, course_id=None):
+    if course_id:
+        course = Course.objects.get(id=course_id)
+    else:
+        course = None
+
     if request.method == 'POST':
         name = request.POST['name']
         instructor = request.POST['instructor']
-        Course.objects.create(name=name, instructor=instructor)
+        if course:
+            course.name = name
+            course.instructor = instructor
+            course.save()
+        else:
+            Course.objects.create(name=name, instructor=instructor)
         return redirect('course_list')
-    return render(request, 'add_course.html')
+
+    return render(request, 'add_edit_course.html', {'course': course})
 
 def course_list(request):
     courses = Course.objects.all()
@@ -41,4 +52,6 @@ def delete_student(request, student_id):
     student = Student.objects.get(id=student_id)
     student.delete()
     return redirect('student_list')
+
+
 
