@@ -37,16 +37,27 @@ def student_list(request):
 
 # Without select_related, Django would run one query per student to fetch the related course.
 
-def add_student(request):
+def add_edit_student(request,student_id=None):
+    if student_id:
+        student = Student.objects.get(id=student_id)
+    else:
+        student = None
+        
     if request.method == 'POST':
         name = request.POST['name']
         age = request.POST['age']
         course_id = request.POST['course']
         course = Course.objects.get(id=course_id)
-        Student.objects.create(name=name, age=age, course=course)
+        if student:
+            student.name = name
+            student.age = age
+            student.course = course
+            student.save()
+        else:
+            Student.objects.create(name=name, age=age, course=course)
         return redirect('student_list')
     courses = Course.objects.all()
-    return render(request, 'add_student.html', {'courses': courses})
+    return render(request, 'add_edit_student.html', {'student': student, 'courses': courses})
 
 def delete_student(request, student_id):
     student = Student.objects.get(id=student_id)

@@ -2,9 +2,12 @@
 <ul>
 {% for s in students %}
     <li>{{ s.name }} ({{ s.age }}) - {{ s.course.name }}
-        <span><a href="{% url 'delete_student' s.id %}" style="color: red; margin-left: 10px;">Remove</a></span>
+        <span>
+            <a href="{% url 'add_edit_student' s.id %}" style="color: blue; margin-left: 10px;">Edit</a>
+            <a href="{% url 'delete_student' s.id %}" style="color: red; margin-left: 10px;">Remove</a>
+        </span>
     </li>
 {% endfor %}
 </ul>
-<a href="{% url 'add_student' %}">Add Student</a>
+<a href="{% url 'add_edit_student' %}">Add Student</a>
 <a href="{% url 'course_list' %}">Go To Course </a>
