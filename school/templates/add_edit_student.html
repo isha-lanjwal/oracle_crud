@@ -6,7 +6,7 @@
   {{student.course}}
   <select name="course">
     {% for c in courses %}
-      <option value="{{ c.id }}" {% if student.course.id == c.id %}selected{% endif %}>{{ c.name }}</option>
+      <option value="{{ c.id }}" {% if student and student.course.id == c.id %}selected{% endif %}>{{ c.name }}</option>
     {% endfor %}
   </select>
   <button type="submit">Add</button>
